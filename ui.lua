@@ -5212,14 +5212,14 @@ local Library do
                 ImageColor3 = FromRGB(202, 243, 255),
                 ScaleType = Enum.ScaleType.Fit,
                 BorderColor3 = FromRGB(0, 0, 0),
-                AnchorPoint = Vector2New(0.5, 0),
+                AnchorPoint = Vector2New(0.5, 0,5),
                 Image = "rbxassetid://" .. Window.Logo,
                 BackgroundTransparency = 1,
-                Position = UDim2New(0.5, 0, 0, 12),
-                Size = UDim2New(0, 75, 0, 75),
+                Position = UDim2New(0.5, 0, 0, -40),
+                Size = UDim2New(0, 175, 0, 175),
                 BorderSizePixel = 0,
                 BackgroundColor3 = FromRGB(255, 255, 255)
-            })  Items["Logo"]:AddToTheme({ImageColor3 = "Accent"})
+            })  
 
             Items["Search"] = Instances:Create("Frame", {
                 Parent = Items["Side"].Instance,
@@ -6246,7 +6246,6 @@ local Library do
         return SettingsPage
     end
 end
-
 
 getgenv().Library = Library
 return Library
