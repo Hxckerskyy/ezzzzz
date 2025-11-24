@@ -4718,7 +4718,8 @@ local Library do
                 BorderColor3 = FromRGB(12, 12, 12),
                 Size = UDim2New(0, 116, 0, 32),
                 BorderSizePixel = 2,
-                BackgroundColor3 = FromRGB(14, 17, 15)
+                BackgroundColor3 = FromRGB(14, 17, 15),
+				AutomaticSize = Enum.AutomaticSize.XY
             })  Items["KeybindList"]:AddToTheme({BackgroundColor3 = "Background", BorderColor3 = "Border"})
 
             Items["KeybindList"]:MakeDraggable()
