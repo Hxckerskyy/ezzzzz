@@ -69,7 +69,7 @@ local Library do
     Library = {
         Theme =  { },
 
-        MenuKeybind = tostring(Enum.KeyCode.RightControl), 
+        MenuKeybind = tostring(Enum.KeyCode.V), 
         Flags = { },
 
         Tween = {
@@ -205,12 +205,12 @@ local Library do
 
     local Themes = {
 		["Preset"] = {
-            ["Background"] = FromRGB(12, 10, 14),          
+           ["Background"] = FromRGB(12, 10, 14),          
             ["Border"] = FromRGB(28, 24, 32),
-            ["Inline"] = FromRGB(30, 26, 34),
+            ["Inline"] = FromRGB(12,12,12),
             ["Hovered Element"] = FromRGB(60, 50, 75),    
             ["Page Background"] = FromRGB(16, 14, 18),
-            ["Outline"] = FromRGB(70, 60, 85),
+            ["Outline"] = FromRGB(0,0,0),
             ["Element"] = FromRGB(38, 34, 45),
             ["Gradient"] = FromRGB(210, 180, 240),        
             ["Text"] = FromRGB(240, 235, 255),
