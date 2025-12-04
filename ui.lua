@@ -12,8 +12,6 @@ end
 
 local LoadTick = os.clock()
 
-local CachedDescendants = nil
-
 local Library do
     local Workspace = game:GetService("Workspace")
     local UserInputService = game:GetService("UserInputService")
@@ -22,8 +20,6 @@ local Library do
     local RunService = game:GetService("RunService")
     local CoreGui = cloneref and cloneref(game:GetService("CoreGui")) or game:GetService("CoreGui")
     local TweenService = game:GetService("TweenService")
-
-	
 
     gethui = gethui or function()
         return CoreGui
@@ -5422,47 +5418,51 @@ local Library do
         end
 
         function Window:SetOpen(Bool)
-    if Debounce then return end
-    Debounce = true
-    Window.IsOpen = Bool
-
-    if not CachedDescendants then
-        CachedDescendants = Items["Window"].Instance:GetDescendants()
-        table.insert(CachedDescendants, Items["Window"].Instance)
-    end
-
-    local fadeSpeed = Library.FadeSpeed
-
-    if Bool then
-        Items["Window"].Instance.Visible = true
-    end
-
-    local tweens = {}
-
-    for _, obj in ipairs(CachedDescendants) do
-        local props = Tween:GetProperty(obj)
-        if not props then continue end
-
-        if type(props) == "table" then
-            for _, prop in ipairs(props) do
-                table.insert(tweens, Tween:FadeItem(obj, prop, Bool, fadeSpeed).Tween)
+            if Debounce then 
+                return
             end
-        else
-            table.insert(tweens, Tween:FadeItem(obj, props, Bool, fadeSpeed).Tween)
-        end
-    end
 
-    task.spawn(function()
-        for _, tween in ipairs(tweens) do
-            tween.Completed:Wait()
-        end
+            Window.IsOpen = Bool
 
-        Debounce = false
-        Items["Window"].Instance.Visible = Bool
-        Items["MouseBackground"].Instance.Visible = Bool
-        UserInputService.MouseIconEnabled = true
-    end)
-end
+            Debounce = true 
+
+            if Window.IsOpen then 
+                Items["Window"].Instance.Visible = true 
+            end
+
+            local Descendants = Items["Window"].Instance:GetDescendants()
+            TableInsert(Descendants, Items["Window"].Instance)
+
+            local NewTween
+
+            for Index, Value in Descendants do 
+                local TransparencyProperty = Tween:GetProperty(Value)
+
+                if not TransparencyProperty then
+                    continue 
+                end
+
+                if type(TransparencyProperty) == "table" then 
+                    for _, Property in TransparencyProperty do 
+                        NewTween = Tween:FadeItem(Value, Property, Bool, Library.FadeSpeed)
+                    end
+                else
+                    NewTween = Tween:FadeItem(Value, TransparencyProperty, Bool, Library.FadeSpeed)
+                end
+            end
+            
+            NewTween.Tween.Completed:Connect(function()
+                Debounce = false 
+                Items["Window"].Instance.Visible = Window.IsOpen
+                if Window.IsOpen then
+                    Items["MouseBackground"].Instance.Visible = true
+                    UserInputService.MouseIconEnabled = true
+                else
+                    Items["MouseBackground"].Instance.Visible = false
+                    UserInputService.MouseIconEnabled = true
+                end
+            end)
+        end
 
         Library:Connect(UserInputService.InputBegan, function(Input)
             if tostring(Input.KeyCode) == Library.MenuKeybind or tostring(Input.UserInputType) == Library.MenuKeybind then
