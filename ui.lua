@@ -5463,7 +5463,6 @@ local Library do
         UserInputService.MouseIconEnabled = true
     end)
 end
-        end
 
         Library:Connect(UserInputService.InputBegan, function(Input)
             if tostring(Input.KeyCode) == Library.MenuKeybind or tostring(Input.UserInputType) == Library.MenuKeybind then
